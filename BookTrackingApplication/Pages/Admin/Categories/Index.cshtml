@@ -1,0 +1,56 @@
+@page
+@model BookTrackingApplication.Pages.Admin.Categories.IndexModel
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Category</h1>
+
+<p>
+    <a asp-page="Create">Create New Category</a>
+</p>
+
+@*Select Tag Helper*@
+<form>
+    <p>
+        <select asp-for="CategoriesDesc" asp-items="Model.Description">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr> <th>
+                @Html.DisplayNameFor(model => model.Category[0].NameToken)
+            </th><th>
+                @Html.DisplayNameFor(model => model.Category[0].Description)
+            </th><th>
+                @Html.DisplayNameFor(model => model.Category[0].CategoryTypes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Category) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameToken)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryTypes.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.NameToken">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.NameToken">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.NameToken">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

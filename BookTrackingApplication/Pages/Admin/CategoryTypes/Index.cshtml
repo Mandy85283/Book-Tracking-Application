@@ -1,0 +1,54 @@
+@page
+@model BookTrackingApplication.Pages.Admin.CategoryTypes.IndexModel
+
+@{
+    ViewData["Title"] = "Category Types";
+}
+
+<h1>Category Types</h1>
+
+<p>
+    <a asp-page="Create">Create New Category Type</a>
+</p>
+
+@*Select tag helper*@
+<form>
+    <p>
+        <select asp-for="CategoriesNames" asp-items="Model.Names">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+             <th>
+                @Html.DisplayNameFor(model => model.CategoryType[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryType[0].Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CategoryType) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Type">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Type">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Type">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

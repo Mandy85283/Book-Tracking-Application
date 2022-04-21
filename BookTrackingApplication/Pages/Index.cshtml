@@ -1,0 +1,48 @@
+﻿@page
+@using BookTrackingApplication.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Book Tracker";
+}
+@*List of all available books*@
+
+@if (Model.CategoryType != null)
+{
+    <section class="list_of_books">
+        <h4 class="text-center">List of your books</h4>
+        <table  class="table">
+                <thead><tr><th>
+                Book Name
+                </th><th>
+                Category Type Name
+                </th><th>
+                Category Description
+                </th></tr></thead>
+            @foreach (CategoryType type in Model.CategoryType)
+            {
+               @foreach (Category category in Model.Categories)
+                  {
+                     @if (Equals(category.Type, type.Type))
+                        {
+                           @foreach (Book books in Model.Books)
+                               {
+                                  @if (Equals(books.Category, category.NameToken))
+                                      {
+                                         <tr><td>
+                                         <a asp-page="/Admin/Books/Details" asp-route-id="@books.ISBN"> @books.Title</a>
+                                         </td><td> 
+                                         @type.Name
+                                         </td><td>
+                                         @category.Description
+                                         </td></tr>
+                                       }
+                               }      
+                        }
+                  } 
+            }
+        </table>
+    </section>
+}
+
+
+
